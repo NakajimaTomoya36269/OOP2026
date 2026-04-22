@@ -28,34 +28,24 @@
 
         static void PrintMeterToFeetList(int start, int stop)
         {
+            FeetConverter converter = new FeetConverter();
             //メートルからフィートへの対応表を出力
             for (int meter = start; meter <= stop; meter++)
             {
-                double feet = MeterToFeet(meter);
+                double feet = converter.ToMeter(meter);
                 Console.WriteLine($"{meter}m = {feet:0.0000}ft");
             }
         }
 
         static void PrintFeetToMeterList(int start, int stop)
         {
+            FeetConverter converter = new FeetConverter();
             //フィートからメートルへの対応表を出力
             for (int feet = start; feet <= stop; feet++)
             {
-                double meter = FeetToMeter(feet);
+                double meter = converter.FromMeter(feet);
                 Console.WriteLine($"{feet}ft = {meter:0.0000}m");
             }
-        }
-
-        //フィートからメートルを求める 
-        static double FeetToMeter(int feet)
-        {
-            return feet * 0.3048;
-        }
-
-        // メートルからフィートを求める
-        static double MeterToFeet(int meter)
-        {
-            return meter / 0.3048;
         }
     }
 }
