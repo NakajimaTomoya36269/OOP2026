@@ -17,10 +17,15 @@ namespace Exercise01 {
         //2.1.4
         private static void PrintSongs(Song[] songs) {
 
-            for (int i = 0; i < songs.Length; i++) {
-                int minute = songs[i].Length / 60;
-                int second = songs[i].Length % 60;
-                Console.WriteLine($"{songs[i].Title}, {songs[i].ArtistName}, {minute}:{second}");
+            foreach (var song in songs) {
+                int minute = song.Length / 60;
+                int second = song.Length % 60;
+
+                if(second < 10) {
+                    Console.WriteLine($"{song.Title}, {song.ArtistName}, {minute}:0{second}");
+                } else {
+                    Console.WriteLine($"{song.Title}, {song.ArtistName}, {minute}:{second}");
+                }
             }
         }
     }
