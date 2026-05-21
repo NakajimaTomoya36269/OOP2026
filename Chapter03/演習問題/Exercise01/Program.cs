@@ -1,5 +1,4 @@
-﻿
-namespace Exercise01 {
+﻿namespace Exercise01 {
     internal class Program {
         static void Main(string[] args) {
 
@@ -46,7 +45,12 @@ namespace Exercise01 {
         }
 
         private static void Exercise4(List<int> numbers) {
+            var query = numbers.Select(s => s * 2).ToList();
+            Console.WriteLine("--- 3.1.4 ---");
 
+            foreach (var item in query) {
+                Console.WriteLine(item);
+            }
         }
     }
 }
