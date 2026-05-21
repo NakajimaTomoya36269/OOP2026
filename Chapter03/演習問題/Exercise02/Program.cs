@@ -26,14 +26,22 @@ namespace Exercise02 {
 
         private static void Exercise2_1(List<string> cities) {
             //できたらGitのコメント「問題3.2.1完成」
-            Console.Write("都市名：");
-            var name = Console.ReadLine();
+            Console.WriteLine("都市名を入力。空行で終了");
+            while (true) {
 
-            var index = cities.FindIndex(s => s == name);
-            if (index == -1) {
-                Console.WriteLine(index);
-            } else {
-                Console.WriteLine($"{index}番目");
+                var name = Console.ReadLine();
+
+                if(name.Equals("")) {
+                    break;
+                }
+
+                var index = cities.FindIndex(s => s == name);
+                if (index == -1) {
+                    Console.WriteLine(index);
+                } else {
+                    Console.WriteLine($"{index}番目");
+
+                }
             }
         }
 
@@ -55,11 +63,9 @@ namespace Exercise02 {
 
         private static void Exercise2_4(List<string> cities) {
             //できたらGitのコメント「問題3.2.4完成」
-            var query = cities.Where(s => s.StartsWith("B")).Select(s => s.Length);
+            var query = cities.Where(s => s.StartsWith("B")).Select(s => s.Length).ToList();
 
-            foreach (var item in query) {
-                Console.WriteLine(item);
-            }
+            query.ForEach(s => Console.WriteLine($"{s}文字"));
         }
     }
 }
