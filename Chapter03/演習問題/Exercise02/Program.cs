@@ -38,8 +38,10 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_2(List<string> cities) {
-	        //できたらGitのコメント「問題3.2.2完成」
-	        
+            //できたらGitのコメント「問題3.2.2完成」
+            var query = cities.Count(s => s.Contains("o"));
+
+            Console.WriteLine(query);
         }
 
         private static void Exercise2_3(List<string> cities) {
