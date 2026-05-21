@@ -37,7 +37,12 @@ namespace Exercise01 {
         }
 
         private static void Exercise3(List<int> numbers) {
+            var query = numbers.Where(s => s >= 50);
+            Console.WriteLine("--- 3.1.3 ---");
 
+            foreach (var item in query) {
+                Console.WriteLine(item);
+            }
         }
 
         private static void Exercise4(List<int> numbers) {
