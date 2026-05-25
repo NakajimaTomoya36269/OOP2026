@@ -31,7 +31,7 @@ namespace Exercise02 {
 
                 var name = Console.ReadLine();
 
-                if(name.Equals("")) {
+                if (name.Equals("")) {
                     break;
                 }
 
@@ -63,9 +63,11 @@ namespace Exercise02 {
 
         private static void Exercise2_4(List<string> cities) {
             //できたらGitのコメント「問題3.2.4完成」
-            var query = cities.Where(s => s.StartsWith("B")).Select(s => s.Length).ToList();
+            var query = cities.Where(s => s.StartsWith("B")).Select(s => new { s, s.Length });
 
-            query.ForEach(s => Console.WriteLine($"{s}文字"));
+            foreach (var item in query) {
+                Console.WriteLine(item.s + ":" + item.Length + "文字");
+            }
         }
     }
 }
