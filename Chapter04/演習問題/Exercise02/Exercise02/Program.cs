@@ -31,8 +31,26 @@ namespace Exercise02 {
 
         private static void Exercise2() {
             //switch文を使用
+            var str = Console.ReadLine();
 
-
+            if (int.TryParse(str, out var number)) {
+                switch (number) {
+                    case < 0:
+                        Console.WriteLine(number);
+                        break;
+                    case < 100:
+                        Console.WriteLine(number * 2);
+                        break;
+                    case < 500:
+                        Console.WriteLine(number * 3);
+                        break;
+                    default:
+                        Console.WriteLine(number);
+                        break;
+                }
+            } else {
+                Console.WriteLine("入力値に誤りがあります");
+            }
         }
 
         private static void Exercise3() {
