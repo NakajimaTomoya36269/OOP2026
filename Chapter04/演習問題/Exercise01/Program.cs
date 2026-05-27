@@ -58,7 +58,10 @@ namespace Exercise01 {
         }
 
         private static void Exercise3(List<string> langs) {
+            Console.WriteLine("\n --- 4.1.3 ---");
 
+            var lang = langs.Find(s => s.Length.Equals(10)) ?? "unknown";
+            Console.WriteLine(lang);
         }
     }
 }
