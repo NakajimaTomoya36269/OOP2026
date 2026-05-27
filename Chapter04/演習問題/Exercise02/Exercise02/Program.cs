@@ -55,8 +55,19 @@ namespace Exercise02 {
 
         private static void Exercise3() {
             //switch式を使用
+            var str = Console.ReadLine();
 
-
+            if (int.TryParse(str, out var number)) {
+                var result = number switch {
+                    < 0 => number,
+                    < 100 => number * 2,
+                    < 500 => number * 3,
+                    _ => number
+                };
+                Console.WriteLine(result);
+            } else {
+                Console.WriteLine("入力値に誤りがあります");
+            }
         }
     }
 }
