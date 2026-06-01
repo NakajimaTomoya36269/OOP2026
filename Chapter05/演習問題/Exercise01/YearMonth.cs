@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,13 +9,15 @@ namespace Exercise01 {
     //5.1.1
     public class YearMonth {
 
-        public string Year { get; init; }
+        public int Year { get; init; }
 
-        public string Month { get; init; }
+        public int Month { get; init; }
 
-        public YearMonth(string year, string month) {
+        public YearMonth(int year, int month) {
             Year = year;
             Month = month;
         }
+
+        public bool Is21Century => 2001 <= Year && Year <= 2100;
     }
 }
