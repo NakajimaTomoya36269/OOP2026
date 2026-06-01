@@ -19,5 +19,21 @@ namespace Exercise01 {
         }
 
         public bool Is21Century => 2001 <= Year && Year <= 2100;
+
+        public YearMonth AddOneMonth() {
+            int year = Year;
+            int month = Month;
+
+            month++;
+
+            if (month.Equals(12)) {
+                year++;
+                month = 0;
+            }
+
+            var yearMonth = new YearMonth(year, month);
+
+            return yearMonth;
+        }
     }
 }
