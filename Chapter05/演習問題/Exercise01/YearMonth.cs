@@ -26,14 +26,18 @@ namespace Exercise01 {
 
             month++;
 
-            if (month.Equals(12)) {
+            if (month.Equals(13)) {
                 year++;
-                month = 0;
+                month = 1;
             }
 
             var yearMonth = new YearMonth(year, month);
 
             return yearMonth;
+        }
+
+        public override string ToString() {
+            return Year + "年" + Month + "月";
         }
     }
 }
