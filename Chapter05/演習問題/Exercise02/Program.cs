@@ -30,18 +30,18 @@ namespace Exercise02 {
             Console.WriteLine();
         }
 
-        private static void Exercise4(YearMonth[] ymCollection) {
-            int? year = null;
-
+        private static YearMonth? FindFirst21C(YearMonth[] ymCollection) {
             foreach (var ymItem in ymCollection) {
                 if (ymItem.Is21Century) {
-                    year = ymItem.Year;
-                    break;
+                    return ymItem;
                 }
             }
+            return null;
+        }
 
-            if (year is not null) {
-                Console.WriteLine($"{year}年\n");
+        private static void Exercise4(YearMonth[] ymCollection) {
+            if (FindFirst21C(ymCollection) is not null) {
+                Console.WriteLine($"{FindFirst21C(ymCollection).Year}年\n");
             } else {
                 Console.WriteLine("21世紀のデータはありません\n");
             }
