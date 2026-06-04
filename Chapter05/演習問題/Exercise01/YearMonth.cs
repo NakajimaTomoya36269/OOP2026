@@ -24,11 +24,11 @@ namespace Exercise01 {
             int year = Year;
             int month = Month;
 
-            month++;
-
-            if (month.Equals(13)) {
-                year++;
+            if(month == 12) {
+                ++year;
                 month = 1;
+            } else {
+                ++month;
             }
 
             var yearMonth = new YearMonth(year, month);
