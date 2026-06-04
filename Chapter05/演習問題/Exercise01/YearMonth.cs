@@ -21,19 +21,11 @@ namespace Exercise01 {
         public bool Is21Century => 2001 <= Year && Year <= 2100;
 
         public YearMonth AddOneMonth() {
-            int year = Year;
-            int month = Month;
-
-            if(month == 12) {
-                ++year;
-                month = 1;
+            if(Month <= 11) {
+                return new YearMonth(Year, Month + 1);
             } else {
-                ++month;
+                return new YearMonth(Year + 1, 1);
             }
-
-            var yearMonth = new YearMonth(year, month);
-
-            return yearMonth;
         }
 
         public override string ToString() {
