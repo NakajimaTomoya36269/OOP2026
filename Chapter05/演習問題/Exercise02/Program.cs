@@ -31,11 +31,24 @@ namespace Exercise02 {
         }
 
         private static void Exercise4(YearMonth[] ymCollection) {
-            
+            int? year = null;
+
+            foreach (var ymItem in ymCollection) {
+                if (ymItem.Is21Century) {
+                    year = ymItem.Year;
+                    break;
+                }
+            }
+
+            if (year is not null) {
+                Console.WriteLine($"{year}年\n");
+            } else {
+                Console.WriteLine("21世紀のデータはありません\n");
+            }
         }
 
         private static void Exercise5(YearMonth[] ymCollection) {
-            
+
         }
     }
 }
