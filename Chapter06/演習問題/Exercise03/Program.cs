@@ -26,28 +26,28 @@ namespace Exercise03 {
 
         private static void Exercise1(string text) {
             var count = text.Count(s => s.Equals(' '));
-
-            Console.WriteLine($"空白数：{count}");
+            Console.WriteLine($"空白数：{count}\n");
         }
 
         private static void Exercise2(string text) {
-            
+            var replaced = text.Replace("big", "small");
+            Console.WriteLine(replaced + "\n");
         }
 
         private static void Exercise3(string text) {
-            
+
         }
 
         private static void Exercise4(string text) {
-            
+
         }
 
         private static void Exercise5(string text) {
-            
+
         }
 
         private static void Exercise6(string text) {
-            
+
         }
     }
 }
