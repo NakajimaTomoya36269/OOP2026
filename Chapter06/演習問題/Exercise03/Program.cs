@@ -30,7 +30,11 @@ namespace Exercise03 {
         }
 
         private static void Exercise2(string text) {
-            var replaced = text.Replace("big", "small");
+            Console.Write("検索：");
+            var search = Console.ReadLine();
+            Console.Write("置換：");
+            var replace = Console.ReadLine();
+            var replaced = text.Replace(search, replace);
             Console.WriteLine(replaced + "\n");
         }
 
