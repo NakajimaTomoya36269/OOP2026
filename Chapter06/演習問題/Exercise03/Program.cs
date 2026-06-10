@@ -39,7 +39,8 @@ namespace Exercise03 {
         }
 
         private static void Exercise4(string text) {
-
+            string[] words = text.Split(' ');
+            Console.WriteLine($"単語数：{words.Length}\n");
         }
 
         private static void Exercise5(string text) {
