@@ -82,6 +82,13 @@ namespace Exercise03 {
             for (char ch = 'a'; ch <= 'z'; ch++) {
                 Console.WriteLine($"{ch}:{array[ch - 'a']}");
             }
+
+            Console.WriteLine();    //改行
+
+            //'a'から順にカウントして集計
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                Console.WriteLine($"{ch}:{str.Count(c => c == ch)}");
+            }
         }
     }
 }
