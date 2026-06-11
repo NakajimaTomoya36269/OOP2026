@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Immutable;
+
 namespace Exercise03 {
     internal class Program {
         static void Main(string[] args) {
@@ -48,16 +50,32 @@ namespace Exercise03 {
         }
 
         private static void Exercise5(string text) {
-            string[] words = text.Split(' ');
-            var query = words.Where(s => s.Length <= 4);
-            foreach (var item in query) {
-                Console.WriteLine(item);
+            var words = text.Split(' ').Where(s => s.Length <= 4);
+            foreach (var word in words) {
+                Console.WriteLine(word);
             }
             Console.WriteLine();
         }
 
         private static void Exercise6(string text) {
+            var dict = new Dictionary<char, int>();
 
+            foreach (var c in text) {
+                if(c == ' ') {
+                    continue;
+                }
+                if (dict.ContainsKey(c)) {
+                    dict[c] += 1;
+                } else {
+                    dict[c] = 1;
+                }
+            }
+
+            var sorted = dict.ToImmutableSortedDictionary();
+
+            foreach (var item in sorted) {
+                Console.WriteLine($"{item.Key} = {item.Value}");
+            }
         }
     }
 }
