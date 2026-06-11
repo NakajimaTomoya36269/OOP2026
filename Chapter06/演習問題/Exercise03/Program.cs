@@ -58,24 +58,31 @@ namespace Exercise03 {
         }
 
         private static void Exercise6(string text) {
-            var dict = new Dictionary<char, int>();
+            var str = text.ToLower().Replace(" ", "");
 
-            foreach (var c in text) {
-                if(c == ' ') {
-                    continue;
-                }
+            var dict = new SortedDictionary<char, int>();
+
+            foreach (var c in str) {
                 if (dict.ContainsKey(c)) {
-                    dict[c] += 1;
+                    dict[c]++;
                 } else {
                     dict[c] = 1;
                 }
             }
 
-            var sorted = dict.ToImmutableSortedDictionary();
-
-            foreach (var item in sorted) {
-                Console.WriteLine($"{item.Key} = {item.Value}");
+            foreach (var word in dict) {
+                Console.WriteLine($"{word.Key}:{word.Value}");
             }
+
+            //var alphDicCount = Enumerable.Range('a', 26).ToDictionary(num => (char)num,num => 0);
+
+            //foreach (var c in str) {
+            //    ++alphDicCount[c];
+            //}
+
+            //foreach (var item in alphDicCount) {
+            //    Console.WriteLine($"{item.Key}：{item.Value}");
+            //}
         }
     }
 }
