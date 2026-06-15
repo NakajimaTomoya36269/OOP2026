@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Immutable;
+using System.Text;
 
 namespace Exercise03 {
     internal class Program {
@@ -41,7 +42,10 @@ namespace Exercise03 {
         }
 
         private static void Exercise3(string text) {
-
+            var words = text.Split(' ');
+            var sb = new StringBuilder();
+            sb.Append(String.Join(" ", words));
+            Console.WriteLine($"{sb}\n");
         }
 
         private static void Exercise4(string text) {
