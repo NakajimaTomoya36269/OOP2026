@@ -43,9 +43,14 @@ namespace Exercise03 {
 
         private static void Exercise3(string text) {
             var words = text.Split(' ');
-            var sb = new StringBuilder();
-            sb.Append(String.Join(" ", words));
-            Console.WriteLine($"{sb}\n");
+            var sb = new StringBuilder(words[0]);
+            //sb.Append(String.Join(" ", words));
+            foreach (var word in words.Skip(1)) {
+                sb.Append(' ');
+                sb.Append(word);
+            }
+
+            Console.WriteLine($"{sb}.\n");
         }
 
         private static void Exercise4(string text) {
