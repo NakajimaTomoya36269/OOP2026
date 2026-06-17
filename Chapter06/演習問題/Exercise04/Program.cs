@@ -6,7 +6,7 @@
             var array = line.Split(new[] { '=', ';' });
 
             for (int i = 0; i < array.Length; i += 2) {
-                Console.WriteLine($"{ToJapanese(array[i]),3}:{array[i + 1]}");
+                Console.WriteLine($"{ToJapanese(array[i]),-3}:{array[i + 1]}");
             }
         }
         static string ToJapanese(string key) {
