@@ -33,7 +33,9 @@ namespace Exercise01 {
         }
 
         private static void Exercise3(int[] numbers) {
-            
+            foreach (var strings in numbers.Select(x => x.ToString("000"))) {
+                Console.WriteLine(strings);
+            }
         }
 
         private static void Exercise4(int[] numbers) {
