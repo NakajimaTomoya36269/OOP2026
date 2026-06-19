@@ -27,20 +27,21 @@ namespace Exercise01 {
         }
 
         private static void Exercise2(int[] numbers) {
-            foreach (var item in numbers.TakeLast(2)) {
-                Console.WriteLine(item);
+            foreach (var n in numbers.TakeLast(2)) {
+                Console.WriteLine(n);
             }
         }
 
         private static void Exercise3(int[] numbers) {
-            foreach (var strings in numbers.Select(x => x.ToString("000"))) {
-                Console.WriteLine(strings);
+            var strings = numbers.Select(x => x.ToString("000"));
+            foreach (var s in strings) {
+                Console.WriteLine(s);
             }
         }
 
         private static void Exercise4(int[] numbers) {
-            foreach (var item in numbers.OrderBy(x => x).Take(3)) {
-                Console.WriteLine(item);
+            foreach (var n in numbers.OrderBy(x => x).Take(3)) {
+                Console.WriteLine(n);
             }
         }
 
