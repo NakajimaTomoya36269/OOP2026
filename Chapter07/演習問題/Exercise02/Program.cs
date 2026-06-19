@@ -37,10 +37,9 @@ namespace Exercise02 {
         }
 
         private static void Exercise1(List<Book> books) {
-            foreach (var book in books.Where(s => s.Title == "ワンダフル・C#ライフ")) {
-                Console.WriteLine($"価格：{book.Price}円");
-                Console.WriteLine($"ページ数：{book.Pages}ページ");
-            }
+            var book = books.FirstOrDefault(s => s.Title == "ワンダフル・C#ライフ");
+            Console.WriteLine($"価格：{book.Price}円");
+            Console.WriteLine($"ページ数：{book.Pages}ページ");
         }
 
         private static void Exercise2(List<Book> books) {
