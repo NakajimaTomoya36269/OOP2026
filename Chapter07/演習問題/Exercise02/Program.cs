@@ -37,23 +37,24 @@ namespace Exercise02 {
         }
 
         private static void Exercise1(List<Book> books) {
-            var book = books.FirstOrDefault(s => s.Title == "ワンダフル・C#ライフ");
-            Console.WriteLine($"価格：{book.Price}円");
-            Console.WriteLine($"ページ数：{book.Pages}ページ");
+            var book = books.FirstOrDefault(b => b.Title == "ワンダフル・C#ライフ");
+            Console.WriteLine($"価格：{book?.Price}円");
+            Console.WriteLine($"ページ数：{book?.Pages}ページ");
         }
 
         private static void Exercise2(List<Book> books) {
-            var count = books.Count(s => s.Title.Contains("C#"));
+            var count = books.Count(b => b.Title.Contains("C#"));
             Console.WriteLine($"{count}冊");
         }
 
         private static void Exercise3(List<Book> books) {
-            var average = books.Where(s => s.Title.Contains("C#")).Average(x => x.Pages);
+            var average = books.Where(b => b.Title.Contains("C#")).Average(b => b.Pages);
             Console.WriteLine(average);
         }
 
         private static void Exercise4(List<Book> books) {
-            
+            var find_book = books.Find(b => b.Price >= 4000);
+            Console.WriteLine(find_book?.Title);
         }
 
         private static void Exercise5(List<Book> books) {
