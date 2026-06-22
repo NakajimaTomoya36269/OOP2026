@@ -53,8 +53,9 @@ namespace Exercise02 {
         }
 
         private static void Exercise4(List<Book> books) {
-            var find_book = books.Find(b => b.Price >= 4000);
-            Console.WriteLine(find_book?.Title);
+            var book = books.FirstOrDefault(b => b.Price >= 4000);
+            if (book is not null)
+                Console.WriteLine(book.Title);
         }
 
         private static void Exercise5(List<Book> books) {
