@@ -26,7 +26,7 @@ namespace Section01 {
                     Console.WriteLine("上書きしますか?(Y/N)");
                     overwrite = Console.ReadLine();
                 }
-                if (!prefOfficeDict.ContainsKey(pref) || overwrite == "Y")
+                if ((!prefOfficeDict.ContainsKey(pref) || overwrite == "Y") && prefCaptalLocation is not null)
                     prefOfficeDict[pref] = prefCaptalLocation;
 
                 Console.WriteLine();
@@ -71,7 +71,7 @@ namespace Section01 {
         private static void searchPrefCaptalLocation() {
             Console.Write("都道府県:");
             var pref_key = Console.ReadLine();
-            if (prefOfficeDict.Any(p => p.Key == pref_key)) {
+            if (prefOfficeDict.Any(p => p.Key == pref_key) && pref_key is not null) {
                 Console.WriteLine($"{pref_key}の県庁所在地は{prefOfficeDict[pref_key]}です。");
             } else {
                 Console.WriteLine("見つかりませんでした");
