@@ -32,7 +32,21 @@ namespace Exercise01 {
 
         private static void Exercise2(string text) {
             //コミットのコメント(問題8.1.2完成)
+            var sortDict = new SortedDictionary<char, int>();
+            var str = text.ToUpper();
 
+            foreach (var ch in str) {
+                if ('A' <= ch && ch <= 'Z') {
+                    if (sortDict.ContainsKey(ch)) {
+                        ++sortDict[ch];
+                    } else {
+                        sortDict[ch] = 1;
+                    }
+                }
+            }
+            foreach (var item in sortDict) {
+                Console.WriteLine($"'{item.Key}':{item.Value}");
+            }
         }
     }
 }
