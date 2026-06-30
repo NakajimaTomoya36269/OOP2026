@@ -60,24 +60,18 @@
 
         //問題１　合計値を表示（式形式で記述せよ）
         //　　　　出力結果【618】
-        private static void Exercise01(int[] numbers) {
-            Console.WriteLine(numbers.Sum());
-        }
-
+        private static void Exercise01(int[] numbers) => Console.WriteLine(numbers.Sum());
 
         //問題２　偶数の最大値を表示（式形式で記述せよ）
         //　　　　出力結果【94】
-        private static void Exercise02(int[] numbers) {
-            Console.WriteLine(numbers.Where(n => n % 2 == 0).Max());
-        }
-
+        private static void Exercise02(int[] numbers) => Console.WriteLine(numbers.Where(n => n % 2 == 0).Max());
 
         //問題３　昇順に並べて表示（遅延実行とする）
         //　　　　出力結果【12 14 17 20 31 35 40 48 53 76 87 91 94】
         private static void Exercise03(int[] numbers) {
             var sorted = numbers.Order();
             foreach (var n in sorted) {
-                Console.Write($" {n}");
+                Console.Write($"{n} ");
             }
         }
 
@@ -130,9 +124,9 @@
         //　　　　  Canberra : 8文字
         //　　　　  Hong Kong : 9文字】
         private static void Exercise08(List<string> cities) {
-            var count = cities.Select(s => new { s, s.Length });
-            foreach (var item in count) {
-                Console.WriteLine(item.s + ":" + item.Length + "文字");
+            var selected = cities.Select(c => new { c, c.Length });
+            foreach (var item in selected) {
+                Console.WriteLine(item.c + ":" + item.Length + "文字");
             }
         }
 
@@ -147,9 +141,9 @@
         //          New Delhi : 9文字
         //          Hong Kong : 9文字】
         private static void Exercise09(List<string> cities) {
-            var count = cities.Order().Select(s => new { s, s.Length });
-            foreach (var item in count) {
-                Console.WriteLine(item.s + ":" + item.Length + "文字");
+            var sorted = cities.OrderBy(c => c.Length);
+            foreach (var item in sorted) {
+                Console.WriteLine(item + ":" + item.Length + "文字");
             }
         }
 
@@ -158,8 +152,9 @@
         //        【London
         //          Berlin】
         private static void Exercise10(List<string> cities) {
-        
-
+            foreach (var item in cities.Where(c => c.Length == 6)) {
+                Console.WriteLine(item);
+            }
         }
     }
 }
