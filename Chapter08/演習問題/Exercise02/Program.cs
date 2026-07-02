@@ -10,7 +10,7 @@
             // 8.2.3 (Countの呼び出し例)
             // 上のAddメソッドで、２つのオブジェクトを追加しているので、読み込んだ単語数+2が、Countの値になる。
 
-            Console.WriteLine(abbrs.Count());
+            Console.WriteLine(abbrs.Count);
             Console.WriteLine();    //改行
 
             // 8.2.3 (Removeの呼び出し例)
@@ -27,12 +27,9 @@
 
             // 8.2.4
             // 新たなGetAllメソッドを追加済みなので、使用してLINQで処理を行う
-
-
-
-
-
-
+            foreach (var abbr in abbrs.GetAll().Where(a => a.Key.Length == 3)) {
+                Console.WriteLine($"{abbr.Key}={abbr.Value}");
+            }
         }
     }
 }
