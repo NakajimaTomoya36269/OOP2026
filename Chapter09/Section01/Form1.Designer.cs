@@ -168,11 +168,11 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(75, 448);
+            label6.Location = new Point(30, 445);
             label6.Name = "label6";
-            label6.Size = new Size(24, 15);
+            label6.Size = new Size(96, 15);
             label6.TabIndex = 5;
-            label6.Text = "メモ";
+            label6.Text = "誕生日までの日数";
             // 
             // Form1
             // 
