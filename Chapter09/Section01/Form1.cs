@@ -49,13 +49,11 @@ namespace Section01 {
             return (date.Day + firstDayOfWeek - 1) / 7 + 1;
         }
         static int GetNextBirth(DateTime birth, DateTime today) {
-            DateTime nextBirth;
+            DateTime nextBirth = new DateTime(today.Year, birth.Month, birth.Day);
 
-            if (today.Month < birth.Month || (today.Month == birth.Month && today.Day <= birth.Day)) {
-                nextBirth = new DateTime(today.Year, birth.Month, birth.Day);
-            } else {
-                nextBirth = new DateTime(today.Year + 1, birth.Month, birth.Day);
-            }
+            if (nextBirth < today) {
+                nextBirth = nextBirth.AddYears(1);
+            } 
             return (nextBirth.Date - today.Date).Days;
         }
     }
