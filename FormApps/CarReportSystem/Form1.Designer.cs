@@ -200,6 +200,7 @@
             cbAuthor.Location = new Point(93, 107);
             cbAuthor.Name = "cbAuthor";
             cbAuthor.Size = new Size(299, 40);
+            cbAuthor.Sorted = true;
             cbAuthor.TabIndex = 3;
             // 
             // label4
@@ -219,6 +220,7 @@
             cbCarName.Location = new Point(93, 246);
             cbCarName.Name = "cbCarName";
             cbCarName.Size = new Size(226, 40);
+            cbCarName.Sorted = true;
             cbCarName.TabIndex = 3;
             // 
             // label5
@@ -233,6 +235,8 @@
             // 
             // dgvRecords
             // 
+            dgvRecords.AllowUserToAddRows = false;
+            dgvRecords.AllowUserToDeleteRows = false;
             dgvRecords.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecords.Location = new Point(93, 414);
             dgvRecords.MultiSelect = false;
