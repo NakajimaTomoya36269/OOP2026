@@ -120,5 +120,18 @@ namespace CarReportSystem {
             if (!cbCarName.Items.Contains(carName))
                 cbCarName.Items.Add(carName);
         }
+
+        private void btDeletePicture_Click(object sender, EventArgs e) {
+            pbPicture.Image = null;
+        }
+
+        private void btDeleteRecord_Click(object sender, EventArgs e) {
+
+            if (dgvRecords.CurrentRow is null) return;
+
+            int index = dgvRecords.CurrentRow.Index;
+
+            listCarReports.RemoveAt(index);
+        }
     }
 }
