@@ -481,6 +481,7 @@
             MaximizeBox = false;
             Name = "Form1";
             Text = "試乗レポート";
+            FormClosed += Form1_FormClosed;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecords).EndInit();
