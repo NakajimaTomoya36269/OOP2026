@@ -169,5 +169,14 @@ namespace CarReportSystem {
 
             ImputItemsUpdate();
         }
+
+        private void èIóπToolStripMenuItem_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void êFê›íËToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (cdColor.ShowDialog() == DialogResult.OK)
+                BackColor = cdColor.Color;
+        }
     }
 }
