@@ -482,6 +482,7 @@
             Name = "Form1";
             Text = "試乗レポート";
             FormClosed += Form1_FormClosed;
+            Load += Form1_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecords).EndInit();

@@ -16,6 +16,25 @@ namespace CarReportSystem {
             dgvRecords.DataSource = listCarReports;
         }
 
+        private void Form1_Load(object sender, EventArgs e) {
+
+            if (File.Exists("setting.xml")) {
+                try {
+                    using (var reader = XmlReader.Create("setting.xml")) {
+                        var serializer = new XmlSerializer(typeof(Settings));
+                        var settings = serializer.Deserialize(reader) as Settings;
+                        BackColor = Color.FromArgb(settings.MainFormBackColor);
+                    }
+                }
+                catch (Exception ex) {
+                    tsslbMessage.Text = "設定ファイル読み込みエラー";
+                    MessageBox.Show(ex.Message);
+                }
+            } else {
+                tsslbMessage.Text = "設定ファイルがありません";
+            }
+        }
+
         //追加ボタン
         private void btAddRecord_Click(object sender, EventArgs e) {
 
@@ -180,18 +199,17 @@ namespace CarReportSystem {
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
             if (cdColor.ShowDialog() == DialogResult.OK)
                 BackColor = cdColor.Color;
+
+            settings.MainFormBackColor = cdColor.Color.ToArgb();
         }
 
         //フォームが閉じたら呼ばれるイベントハンドラ
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
 
-            //settings.MainFormBackColor = 1;
-
-            using (var writer = XmlWriter.Create("settings.xml")) {
+            using (var writer = XmlWriter.Create("setting.xml")) {
                 var serializer = new XmlSerializer(settings.GetType());
                 serializer.Serialize(writer, settings);
             }
-
         }
     }
 }
