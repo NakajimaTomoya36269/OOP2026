@@ -259,9 +259,9 @@ namespace CarReportSystem {
                     cbAuthor.Items.Clear();
                     cbCarName.Items.Clear();
 
-                    foreach (var item in listCarReports) {
-                        SetCbAuthor(item.Author.Trim());
-                        SetCbCarName(item.CarName.Trim());
+                    foreach (var report in listCarReports) {
+                        SetCbAuthor(report.Author.Trim());
+                        SetCbCarName(report.CarName.Trim());
                     }
                 }
                 catch (Exception ex) {
