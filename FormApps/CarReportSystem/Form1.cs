@@ -24,7 +24,7 @@ namespace CarReportSystem {
                     using (var reader = XmlReader.Create("setting.xml")) {
                         var serializer = new XmlSerializer(typeof(Settings));
 
-                        if(serializer.Deserialize(reader) is Settings loadedSettings) {
+                        if (serializer.Deserialize(reader) is Settings loadedSettings) {
                             settings = loadedSettings;
                             BackColor = Color.FromArgb(settings.MainFormBackColor);
                         }
@@ -148,7 +148,12 @@ namespace CarReportSystem {
 
             if (dgvRecords.CurrentRow is null || !dgvRecords.CurrentRow.Selected) return;
 
-            listCarReports.RemoveAt(dgvRecords.CurrentRow.Index);
+            if (dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport) {
+                tsslbMessage.Text = "削除するレポートを選択してください";
+                return;
+            }
+            listCarReports.Remove(carReport);
+
             InputItemsUpdate();
         }
 
@@ -166,6 +171,11 @@ namespace CarReportSystem {
             //記録者と車名が未入力だった場合は追加しない
             if (String.IsNullOrWhiteSpace(cbAuthor.Text) || String.IsNullOrWhiteSpace(cbCarName.Text)) {
                 tsslbMessage.Text = "記録者、または車名が未入力です";
+                return;
+            }
+
+            if (dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport) {
+                tsslbMessage.Text = "修正するレポートを選択してください";
                 return;
             }
 
