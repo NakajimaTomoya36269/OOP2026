@@ -19,23 +19,13 @@ namespace CarReportSystem {
 
         private void Form1_Load(object sender, EventArgs e) {
 
-            if (File.Exists("setting.xml")) {
-                try {
-                    using (var reader = XmlReader.Create("setting.xml")) {
-                        var serializer = new XmlSerializer(typeof(Settings));
-
-                        if (serializer.Deserialize(reader) is Settings loadedSettings) {
-                            settings = loadedSettings;
-                            BackColor = Color.FromArgb(Settings.Instance.MainFormBackColor);
-                        }
-                    }
-                }
-                catch (Exception ex) {
-                    tsslbMessage.Text = "設定ファイル読み込みエラー";
-                    MessageBox.Show(ex.Message);
-                }
-            } else {
-                tsslbMessage.Text = "設定ファイルがありません";
+            try {
+                Settings.Instance.Load();
+                BackColor = Color.FromArgb(Settings.Instance.MainFormBackColor);
+            }
+            catch (Exception ex) {
+                tsslbMessage.Text = "設定ファイル読み込みエラー";
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -219,11 +209,7 @@ namespace CarReportSystem {
 
         //フォームが閉じたら呼ばれるイベントハンドラ
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
-
-            using (var writer = XmlWriter.Create("setting.xml")) {
-                var serializer = new XmlSerializer(Settings.Instance.GetType());
-                serializer.Serialize(writer, Settings.Instance);
-            }
+            Settings.Instance.Save();
         }
 
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
