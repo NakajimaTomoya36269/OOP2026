@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace CarReportSystem {
     public sealed class Settings {
 
-        private const string FileName = "settings.xml";
+        private const string FileName = "setting.xml";
 
         //唯一のSettingオブジェクト
         private static readonly Settings _instance = new Settings();
@@ -20,6 +20,18 @@ namespace CarReportSystem {
 
         private Settings() { }
 
+        public void Load() {
+            if (!File.Exists(FileName))
+                return;
+
+            using var reader = XmlReader.Create(FileName);
+            var serializer = new XmlSerializer(typeof(SettingsData));
+
+            if (serializer.Deserialize(reader) is SettingsData data) {
+                MainFormBackColor = data.MainFormBackColor;
+            }
+        }
+
         public void Save() {
             var data = new SettingsData {
                 MainFormBackColor = MainFormBackColor
@@ -32,7 +44,7 @@ namespace CarReportSystem {
     }
 
     //XML保存用クラス
-    public class SettingsData { 
+    public class SettingsData {
         public int MainFormBackColor { get; set; }
     }
 }
