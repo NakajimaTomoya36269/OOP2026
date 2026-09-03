@@ -16,8 +16,10 @@ public partial class Form1 : Form
 
         //ProductクラスのプロパティからDataGridView列を自動生成する
         dgvProducts.AutoGenerateColumns = true;
+
         //DataGridViewのデータ元としてBindingListを設定する
         dgvProducts.DataSource = _products;
+        
         //起動時にDBから商品一覧を読み込む
         ReloadProducts();
 
