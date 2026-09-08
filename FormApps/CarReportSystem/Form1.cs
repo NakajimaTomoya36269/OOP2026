@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
 using System.Xml.Linq;
@@ -38,32 +39,27 @@ namespace CarReportSystem {
         //追加ボタン
         private void btAddRecord_Click(object sender, EventArgs e) {
 
-            tsslbMessage.Text = String.Empty;   //メッセージ領域のクリア
-
-            //記録者と車名が未入力だった場合は追加しない
-            if (String.IsNullOrWhiteSpace(cbAuthor.Text) || String.IsNullOrWhiteSpace(cbCarName.Text)) {
-                tsslbMessage.Text = "記録者、または車名が未入力です";
+            //入力値が不正なら処理を終了する
+            if (!TryGetInput(out DateTime date, out string author, out CarReport.MakerGroup maker,
+                    out string carName, out string report, out Image? picture)) {
                 return;
             }
 
-            var carReport = new CarReport() {
-                Date = dtpDate.Value.Date,
-                Author = cbAuthor.Text.Trim(),
-                Maker = GetRadioButtonMaker(),
-                CarName = cbCarName.Text.Trim(),
-                Report = tbReport.Text,
-                Picture = pbPicture.Image
-            };
-            listCarReports.Add(carReport);
+            try {
+                _repository.Add(date, author, maker, carName, report, picture);
+                ReloadCarReports();
+                SetCbAuthor(author.Trim());
+                SetCbCarName(carName.Trim());
+                InputItemsUpdate();
 
-            SetCbAuthor(cbAuthor.Text.Trim());
-
-            SetCbCarName(cbCarName.Text.Trim());
-
-            dgvRecords.ClearSelection();    //セルの選択を削除する
-
-            InputItemsUpdate();
+                tsslbMessage.Text = "商品を登録しました。";
+            }
+            catch (Exception ex) {
+                tsslbMessage.Text = "登録エラー";
+                MessageBox.Show(ex.Message);
+            }
         }
+
         private MakerGroup GetRadioButtonMaker() {
             if (rbToyota.Checked)
                 return MakerGroup.トヨタ;
@@ -282,6 +278,23 @@ namespace CarReportSystem {
                 listCarReports.Add(report);
             }
             dgvRecords.ClearSelection();
+        }
+
+        private bool TryGetInput(out DateTime date, out string author, out CarReport.MakerGroup maker, 
+                                    out string carName, out string report, out Image? picture) {
+
+            date = dtpDate.Value.Date;
+            author = cbAuthor.Text.Trim();
+            maker = GetRadioButtonMaker();
+            carName = cbCarName.Text.Trim();
+            report = tbReport.Text;
+            picture = pbPicture.Image;
+
+            if (string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(carName)) {
+                tsslbMessage.Text = "記録者、または車名が未入力です";
+                return false;
+            }
+            return true;
         }
     }
 }

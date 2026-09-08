@@ -43,7 +43,7 @@ public class CarReportRepository {
         return reports;
     }
 
-    public int Add(DateTime date, int author, CarReport.MakerGroup maker, string carName, string report, Image picture) {
+    public int Add(DateTime date, string author, CarReport.MakerGroup maker, string carName, string report, Image? picture) {
         //接続オブジェクトを生成する
         using var connection = Database.GetConnection();
         connection.Open();
@@ -59,7 +59,7 @@ public class CarReportRepository {
             SELECT last_insert_rowid();
             """;
 
-        command.Parameters.AddWithValue("$date", date);
+        command.Parameters.AddWithValue("$date", date.ToString("yyyy-MM-dd"));
         command.Parameters.AddWithValue("$author", author);
         command.Parameters.AddWithValue("$maker", maker);
         command.Parameters.AddWithValue("$carName", carName);
@@ -89,7 +89,7 @@ public class CarReportRepository {
             WHERE Id = $id;
             """;
 
-        command.Parameters.AddWithValue("$date", report.Date);
+        command.Parameters.AddWithValue("$date", report.Date.ToString("yyyy-MM-dd"));
         command.Parameters.AddWithValue("$author", report.Author);
         command.Parameters.AddWithValue("$maker", report.Maker);
         command.Parameters.AddWithValue("$carName", report.CarName);
