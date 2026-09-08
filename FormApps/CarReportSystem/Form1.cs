@@ -166,23 +166,53 @@ namespace CarReportSystem {
                 return;
             }
 
-            if (dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport) {
+            if (dgvRecords.CurrentRow?.DataBoundItem is not CarReport selectedCarReport) {
                 tsslbMessage.Text = "修正するレポートを選択してください";
                 return;
             }
 
-            listCarReports[dgvRecords.CurrentRow.Index].Date = dtpDate.Value.Date;
-            listCarReports[dgvRecords.CurrentRow.Index].Author = cbAuthor.Text.Trim();
-            listCarReports[dgvRecords.CurrentRow.Index].Maker = GetRadioButtonMaker();
-            listCarReports[dgvRecords.CurrentRow.Index].CarName = cbCarName.Text.Trim();
-            listCarReports[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
-            listCarReports[dgvRecords.CurrentRow.Index].Picture = pbPicture.Image;
+            //入力値が不正なら処理を終了する
+            if (!TryGetInput(out DateTime date, out string author, out CarReport.MakerGroup maker,
+                    out string carName, out string report, out Image? picture)) {
+                return;
+            }
 
-            SetCbAuthor(cbAuthor.Text.Trim());
-            SetCbCarName(cbCarName.Text.Trim());
+            try {
+                //選択中の商品のオブジェクトのデータを更新する
+                selectedCarReport.Date = date;
+                selectedCarReport.Author = author;
+                selectedCarReport.Maker = maker;
+                selectedCarReport.CarName = carName;
+                selectedCarReport.Report = report;
+                selectedCarReport.Picture = picture;
 
-            dgvRecords.Refresh();
-            tsslbMessage.Text = "レポートを修正しました";
+                _repository.Update(selectedCarReport);
+
+                SetCbAuthor(selectedCarReport.Author.Trim());
+                SetCbCarName(selectedCarReport.CarName.Trim());
+
+                ReloadCarReports();
+                InputItemsUpdate();
+
+                tsslbMessage.Text = "商品を修正しました。";
+            }
+            catch (Exception ex) {
+                tsslbMessage.Text = "修正エラー";
+                MessageBox.Show(ex.Message);
+            }
+
+            //listCarReports[dgvRecords.CurrentRow.Index].Date = dtpDate.Value.Date;
+            //listCarReports[dgvRecords.CurrentRow.Index].Author = cbAuthor.Text.Trim();
+            //listCarReports[dgvRecords.CurrentRow.Index].Maker = GetRadioButtonMaker();
+            //listCarReports[dgvRecords.CurrentRow.Index].CarName = cbCarName.Text.Trim();
+            //listCarReports[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
+            //listCarReports[dgvRecords.CurrentRow.Index].Picture = pbPicture.Image;
+
+            //SetCbAuthor(cbAuthor.Text.Trim());
+            //SetCbCarName(cbCarName.Text.Trim());
+
+            //dgvRecords.Refresh();
+            //tsslbMessage.Text = "レポートを修正しました";
         }
 
         private void dgvRecords_SelectionChanged(object sender, EventArgs e) {
