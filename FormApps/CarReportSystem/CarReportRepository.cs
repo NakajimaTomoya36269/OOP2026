@@ -36,7 +36,7 @@ public class CarReportRepository {
                 Maker = (CarReport.MakerGroup)reader.GetInt32(3),
                 CarName = reader.GetString(4),
                 Report = reader.GetString(5),
-                Picture = BytesToImage((byte[])reader.GetValue(6))
+                Picture = reader.IsDBNull(6) ? null : BytesToImage(reader.GetFieldValue<byte[]>(6))
             });
         }
 

@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using static CarReportSystem.CarReport;
 
@@ -10,11 +11,16 @@ namespace CarReportSystem {
         //カーレポート管理用クラス
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
+        private readonly CarReportRepository _repository = new();
+
         //Settings settings = Settings.Instance;
 
         public Form1() {
             InitializeComponent();
+            dgvRecords.AutoGenerateColumns = true;
             dgvRecords.DataSource = listCarReports;
+            ReloadCarReports();
+            tsslbMessage.Text = $"DB: {Database.FilePath}";
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -268,6 +274,14 @@ namespace CarReportSystem {
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void ReloadCarReports() {
+            listCarReports.Clear();
+            foreach (var report in _repository.GetAll()) {
+                listCarReports.Add(report);
+            }
+            dgvRecords.ClearSelection();
         }
     }
 }
