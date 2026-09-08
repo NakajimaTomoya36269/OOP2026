@@ -12,8 +12,8 @@
             その他,
         }
 
-        [System.ComponentModel.DisplayName("ID")]
-        public int Id { get; set; }             //車ID
+        [System.ComponentModel.DisplayName("Id")]
+        public int Id { get; set; }             //ID
         [System.ComponentModel.DisplayName("日付")]
         public DateTime Date { get; set; }      //日付
         [System.ComponentModel.DisplayName("記録者")]
