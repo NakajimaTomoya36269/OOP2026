@@ -34,17 +34,18 @@ namespace CarReportSystem {
         //追加ボタン
         private void btAddRecord_Click(object sender, EventArgs e) {
 
+            CarReport carReport = new CarReport();
+
             //入力値が不正なら処理を終了する
-            if (!TryGetInput(out DateTime date, out string author, out CarReport.MakerGroup maker,
-                    out string carName, out string report, out Image? picture)) {
+            if (!TryGetInput(carReport)) {
                 return;
             }
 
             try {
-                _repository.Add(date, author, maker, carName, report, picture);
+                _repository.Add(carReport);
+                SetCbAuthor(carReport.Author.Trim());
+                SetCbCarName(carReport.CarName.Trim());
                 ReloadCarReports();
-                SetCbAuthor(author.Trim());
-                SetCbCarName(carName.Trim());
                 InputItemsUpdate();
 
                 tsslbMessage.Text = "レポートを登録しました。";
@@ -173,32 +174,18 @@ namespace CarReportSystem {
                 return;
             }
 
-            //記録者と車名が未入力だった場合は追加しない
-            if (String.IsNullOrWhiteSpace(cbAuthor.Text) || String.IsNullOrWhiteSpace(cbCarName.Text)) {
-                tsslbMessage.Text = "記録者、または車名が未入力です";
-                return;
-            }
-
             if (dgvRecords.CurrentRow?.DataBoundItem is not CarReport selectedCarReport) {
                 tsslbMessage.Text = "修正するレポートを選択してください";
                 return;
             }
 
-            //入力値が不正なら処理を終了する
-            if (!TryGetInput(out DateTime date, out string author, out CarReport.MakerGroup maker,
-                    out string carName, out string report, out Image? picture)) {
-                return;
-            }
-
             try {
-                //選択中の商品のオブジェクトのデータを更新する
-                selectedCarReport.Date = date;
-                selectedCarReport.Author = author;
-                selectedCarReport.Maker = maker;
-                selectedCarReport.CarName = carName;
-                selectedCarReport.Report = report;
-                selectedCarReport.Picture = picture;
+                //入力値が不正なら処理を終了する
+                if (!TryGetInput(selectedCarReport)) {
+                    return;
+                }
 
+                //選択中の商品のオブジェクトのデータを更新する
                 _repository.Update(selectedCarReport);
 
                 SetCbAuthor(selectedCarReport.Author.Trim());
@@ -252,17 +239,16 @@ namespace CarReportSystem {
             dgvRecords.ClearSelection();
         }
 
-        private bool TryGetInput(out DateTime date, out string author, out CarReport.MakerGroup maker,
-                                    out string carName, out string report, out Image? picture) {
+        private bool TryGetInput(CarReport carReport) {
 
-            date = dtpDate.Value.Date;
-            author = cbAuthor.Text.Trim();
-            maker = GetRadioButtonMaker();
-            carName = cbCarName.Text.Trim();
-            report = tbReport.Text;
-            picture = pbPicture.Image;
+            carReport.Date = dtpDate.Value.Date;
+            carReport.Author = cbAuthor.Text.Trim();
+            carReport.Maker = GetRadioButtonMaker();
+            carReport.CarName = cbCarName.Text.Trim();
+            carReport.Report = tbReport.Text;
+            carReport.Picture = pbPicture.Image;
 
-            if (string.IsNullOrWhiteSpace(author) || string.IsNullOrWhiteSpace(carName)) {
+            if (string.IsNullOrWhiteSpace(carReport.Author) || string.IsNullOrWhiteSpace(carReport.CarName)) {
                 tsslbMessage.Text = "記録者、または車名が未入力です";
                 return false;
             }

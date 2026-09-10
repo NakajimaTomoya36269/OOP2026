@@ -1,4 +1,5 @@
-﻿using System.Drawing.Imaging;
+﻿using Microsoft.Data.Sqlite;
+using System.Drawing.Imaging;
 using System.Globalization;
 
 namespace CarReportSystem;
@@ -43,7 +44,7 @@ public class CarReportRepository {
         return reports;
     }
 
-    public int Add(DateTime date, string author, CarReport.MakerGroup maker, string carName, string report, Image? picture) {
+    public int Add(CarReport report) {
         //接続オブジェクトを生成する
         using var connection = Database.GetConnection();
         connection.Open();
@@ -59,13 +60,7 @@ public class CarReportRepository {
             SELECT last_insert_rowid();
             """;
 
-        command.Parameters.AddWithValue("$date", date.ToString("yyyy-MM-dd"));
-        command.Parameters.AddWithValue("$author", author);
-        command.Parameters.AddWithValue("$maker", maker);
-        command.Parameters.AddWithValue("$carName", carName);
-        command.Parameters.AddWithValue("$report", report);
-        command.Parameters.AddWithValue("$picture", picture != null ? ImageToBytes(picture) : DBNull.Value);
-
+        SetCommandParameters(report, command);
         //一つの値を返すSQLを実行する
         var result = command.ExecuteScalar();
 
@@ -89,12 +84,7 @@ public class CarReportRepository {
             WHERE Id = $id;
             """;
 
-        command.Parameters.AddWithValue("$date", report.Date.ToString("yyyy-MM-dd"));
-        command.Parameters.AddWithValue("$author", report.Author);
-        command.Parameters.AddWithValue("$maker", report.Maker);
-        command.Parameters.AddWithValue("$carName", report.CarName);
-        command.Parameters.AddWithValue("$report", report.Report);
-        command.Parameters.AddWithValue("$picture", report.Picture != null ? ImageToBytes(report.Picture) : DBNull.Value);
+        SetCommandParameters(report, command);
         command.Parameters.AddWithValue("$id", report.Id);
 
         if (command.ExecuteNonQuery() == 0)
@@ -119,7 +109,6 @@ public class CarReportRepository {
 
     }
 
-
     // ImageをSQLiteへ保存できるbyte[]へ変換する
     private static byte[]? ImageToBytes(Image? image) {
         if (image is null) return null;
@@ -136,6 +125,22 @@ public class CarReportRepository {
         using var image = Image.FromStream(stream);
         // MemoryStream破棄後も利用できるようBitmapとしてコピーする。
         return new Bitmap(image);
+    }
+
+    private static void SetCommandParameters(CarReport report, SqliteCommand command) {
+        command.Parameters.AddWithValue("$date", report.Date.ToString("yyyy-MM-dd"));
+        command.Parameters.AddWithValue("$author", report.Author);
+        command.Parameters.AddWithValue("$maker", report.Maker);
+        command.Parameters.AddWithValue("$carName", report.CarName);
+        command.Parameters.AddWithValue("$report", report.Report);
+
+        byte[]? pictureData = ImageToBytes(report.Picture);
+        var pictureParameter = command.Parameters.Add("$picture", SqliteType.Blob);
+        if (pictureData is not null) {
+            pictureParameter.Value = pictureData;
+        } else {
+            pictureParameter.Value = DBNull.Value;
+        }
     }
 }
 
