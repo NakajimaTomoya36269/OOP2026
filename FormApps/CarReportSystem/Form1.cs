@@ -1,9 +1,4 @@
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 using static CarReportSystem.CarReport;
 
 namespace CarReportSystem {
@@ -52,7 +47,7 @@ namespace CarReportSystem {
                 SetCbCarName(carName.Trim());
                 InputItemsUpdate();
 
-                tsslbMessage.Text = "商品を登録しました。";
+                tsslbMessage.Text = "レポートを登録しました。";
             }
             catch (Exception ex) {
                 tsslbMessage.Text = "登録エラー";
@@ -159,7 +154,7 @@ namespace CarReportSystem {
                 ReloadCarReports();
                 InputItemsUpdate();
 
-                tsslbMessage.Text = "商品を削除しました。";
+                tsslbMessage.Text = "レポートを削除しました。";
             }
             catch (Exception ex) {
                 tsslbMessage.Text = "削除エラー";
@@ -247,64 +242,6 @@ namespace CarReportSystem {
         //フォームが閉じたら呼ばれるイベントハンドラ
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             Settings.Instance.Save();
-        }
-
-        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
-            reportSaveFile();
-        }
-
-        private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
-            reportOpenFile();
-        }
-
-        private void reportSaveFile() {
-            if (sfdReportFileSave.ShowDialog() == DialogResult.OK) {
-                try {
-#pragma warning disable SYSLIB0011
-                    var bf = new BinaryFormatter();
-#pragma warning restore SYSLIB0011
-                    using (FileStream fs = File.Open(
-                        sfdReportFileSave.FileName,
-                        FileMode.Create
-                        )) {
-                        bf.Serialize(fs, listCarReports);
-                    }
-                }
-                catch (Exception ex) {
-                    tsslbMessage.Text = "ファイル書き出しエラー";
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-
-        private void reportOpenFile() {
-            if (ofdReportFileOpen.ShowDialog() == DialogResult.OK) {
-                try {
-#pragma warning disable SYSLIB0011
-                    var bf = new BinaryFormatter();
-#pragma warning restore SYSLIB0011
-                    using (FileStream fs = File.Open(
-                        ofdReportFileOpen.FileName,
-                        FileMode.Open,
-                        FileAccess.Read
-                        )) {
-                        listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
-                        dgvRecords.DataSource = listCarReports;
-                    }
-
-                    cbAuthor.Items.Clear();
-                    cbCarName.Items.Clear();
-
-                    foreach (var report in listCarReports) {
-                        SetCbAuthor(report.Author.Trim());
-                        SetCbCarName(report.CarName.Trim());
-                    }
-                }
-                catch (Exception ex) {
-                    tsslbMessage.Text = "ファイル読み出しエラー";
-                    MessageBox.Show(ex.Message);
-                }
-            }
         }
 
         private void ReloadCarReports() {
