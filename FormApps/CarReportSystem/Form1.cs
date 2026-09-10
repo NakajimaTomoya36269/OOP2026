@@ -34,7 +34,7 @@ namespace CarReportSystem {
         //追加ボタン
         private void btAddRecord_Click(object sender, EventArgs e) {
 
-            CarReport carReport = new CarReport();
+            var carReport = new CarReport();
 
             //入力値が不正なら処理を終了する
             if (!TryGetInput(carReport)) {
