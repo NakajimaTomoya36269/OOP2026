@@ -128,7 +128,7 @@ public class CarReportRepository {
     }
 
     private static void SetCommandParameters(CarReport report, SqliteCommand command) {
-        command.Parameters.AddWithValue("$date", report.Date.ToString("yyyy-MM-dd"));
+        command.Parameters.AddWithValue("$date", report.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
         command.Parameters.AddWithValue("$author", report.Author);
         command.Parameters.AddWithValue("$maker", report.Maker);
         command.Parameters.AddWithValue("$carName", report.CarName);
