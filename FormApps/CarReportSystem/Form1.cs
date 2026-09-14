@@ -5,7 +5,7 @@ namespace CarReportSystem {
     public partial class Form1 : Form {
 
         //カーレポート管理用クラス
-        BindingList<CarReport> listCarReports = new BindingList<CarReport>();
+        private readonly BindingList<CarReport> _carreports = new();
 
         private readonly CarReportRepository _repository = new();
 
@@ -14,7 +14,7 @@ namespace CarReportSystem {
         public Form1() {
             InitializeComponent();
             dgvRecords.AutoGenerateColumns = true;
-            dgvRecords.DataSource = listCarReports;
+            dgvRecords.DataSource = _carreports;
             ReloadCarReports();
             tsslbMessage.Text = $"DB: {Database.FilePath}";
         }
@@ -43,11 +43,8 @@ namespace CarReportSystem {
 
             try {
                 _repository.Add(carReport);
-                SetCbAuthor(carReport.Author.Trim());
-                SetCbCarName(carReport.CarName.Trim());
                 ReloadCarReports();
                 InputItemsUpdate();
-
                 tsslbMessage.Text = "レポートを登録しました。";
             }
             catch (Exception ex) {
@@ -188,9 +185,6 @@ namespace CarReportSystem {
                 //選択中の商品のオブジェクトのデータを更新する
                 _repository.Update(selectedCarReport);
 
-                SetCbAuthor(selectedCarReport.Author.Trim());
-                SetCbCarName(selectedCarReport.CarName.Trim());
-
                 ReloadCarReports();
                 InputItemsUpdate();
 
@@ -232,9 +226,16 @@ namespace CarReportSystem {
         }
 
         private void ReloadCarReports() {
-            listCarReports.Clear();
-            foreach (var report in _repository.GetAll()) {
-                listCarReports.Add(report);
+            _carreports.Clear();
+
+            cbAuthor.Items.Clear();
+            cbCarName.Items.Clear();
+
+            foreach (var carReport in _repository.GetAll()) {
+                _carreports.Add(carReport);
+
+                SetCbAuthor(carReport.Author.Trim());
+                SetCbCarName(carReport.CarName.Trim());
             }
             dgvRecords.ClearSelection();
         }
