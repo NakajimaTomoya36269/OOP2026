@@ -255,5 +255,10 @@ namespace CarReportSystem {
             }
             return true;
         }
+
+        private void ‚±‚ÌƒAƒvƒŠ‚É‚Â‚¢‚ÄToolStripMenuItem_Click(object sender, EventArgs e) {
+            var aboutApp = new AboutApp();
+            aboutApp.ShowDialog();
+        }
     }
 }
