@@ -9,4 +9,6 @@ public class Product {
     public string Name { get; set; } = string.Empty;
     public int Price { get; set; }
     public int Stock { get; set; }
+    [Required]
+    public string Description { get; set; } = string.Empty;
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;    // ToListAsyncを使用
 using MvcBasicSample.Data;              // AppDbContextを使用
 
 namespace MvcBasicSample.Controllers;
-public class ProductsController : Controller{
+public class ProductsController : Controller {
     private readonly AppDbContext _db;  // DBへ問い合わせるためのフィールド
 
     // ASP.NET Coreから必要なAppDbContextを受け取る 
@@ -15,7 +15,7 @@ public class ProductsController : Controller{
     public async Task<IActionResult> Index() {
 
         //Idの昇順で取得し結果をList<Product>にする
-        var products = await _db.Products.Where(product => product.Price > 500)
+        var products = await _db.Products
             .OrderBy(product => product.Price)
             .ToListAsync();
 
