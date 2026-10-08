@@ -8,4 +8,5 @@ public class Product {
     [Required]  //必須項目
     public string Name { get; set; } = string.Empty;
     public int Price { get; set; }
+    public int Stock { get; set; }
 }
