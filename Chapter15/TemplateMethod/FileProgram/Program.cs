@@ -14,11 +14,9 @@ public class FileProgramProcessor : TextProcessor {
         _search = Console.ReadLine();
     }
 
-    protected override void Execute(string line) {
-        char[] delimiters = { ' ', '“', '”', '"', '\'', '.', ',', ':', '/' };
-        var count = line.Split(delimiters).Count(s => s == _search);
-        _count += count;
-    }
+    protected override void Execute(string line) =>
+        _count += line.Split(_search).Length -1;
+    
 
     protected override void Terminate() =>
         Console.WriteLine("「{0}」は{1} つ出現します", _search, _count);
