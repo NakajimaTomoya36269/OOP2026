@@ -1,22 +1,154 @@
-html {
-  font-size: 14px;
+/* =========================
+   定食屋テーマ
+   ========================= */
+:root {
+    --main-color: #d97745;
+    --sub-color: #fff6e9;
+    --accent-color: #f7c873;
+    --text-color: #4a3322;
+    --card-color: #ffffff;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* 全体 */
 body {
-  margin-bottom: 60px;
+    background-color: var(--sub-color);
+    color: var(--text-color);
+    font-family: "Yu Gothic", "Meiryo", sans-serif;
 }
+
+/* ヘッダー */
+.navbar {
+    background: linear-gradient( 90deg, #d97745, #eaa464 ) !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+    .navbar-brand,
+    .navbar .nav-link {
+        color: white !important;
+        font-weight: bold;
+    }
+
+        .navbar .nav-link:hover {
+            color: #fff4d6 !important;
+        }
+
+/* メインコンテンツ */
+main {
+    padding-top: 20px;
+}
+
+/* カード */
+.card {
+    border: none;
+    border-radius: 20px;
+    background: var(--card-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+    .card:hover {
+        transform: translateY(-3px);
+    }
+
+.card-header {
+    background: #ffe5be;
+    border-radius: 20px 20px 0 0 !important;
+    font-weight: bold;
+}
+
+/* メニュー商品 */
+.menu-item {
+    background: white;
+    border-radius: 18px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 2px solid #ffe3ba;
+}
+
+    .menu-item h5 {
+        color: var(--main-color);
+        font-weight: bold;
+    }
+
+/* 金額表示 */
+.price {
+    color: #d9534f;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* ボタン */
+.btn-primary {
+    background: #ffb347;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    padding: 10px 24px;
+}
+
+    .btn-primary:hover {
+        background: #ff9c1a;
+    }
+
+.btn-success {
+    background: #87c38f;
+    border: none;
+    border-radius: 30px;
+}
+
+    .btn-success:hover {
+        background: #6bab73;
+    }
+
+/* 注文数入力 */
+.form-control {
+    border-radius: 15px;
+    border: 2px solid #f6d6aa;
+}
+
+    .form-control:focus {
+        border-color: var(--main-color);
+        box-shadow: 0 0 0 0.2rem rgba(217,119,69,.2);
+    }
+
+/* テーブル */
+.table {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+    .table thead {
+        background: #ffe5be;
+    }
+
+/* 合計金額エリア */
+.total-box {
+    background: #fff4d6;
+    border-radius: 20px;
+    padding: 20px;
+    border: 3px dashed #f0c36d;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+/* フッター */
+footer {
+    color: #7a5a41;
+}
+
+/* タイトル装飾 */
+.page-title {
+    color: var(--main-color);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+    .page-title::before {
+        content: "?? ";
+    }
+
+    .page-title::after {
+        content: " ??";
+    }
